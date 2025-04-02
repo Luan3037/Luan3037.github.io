@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classe de IP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button,a {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button,a:hover {
+            background-color: #45a049;
+        }
+        p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Descubra a Classe de um IP</h2>
+    <input type="text" id="ipInput" placeholder="Digite um IP (ex: 192.168.1.1)">
+    <button onclick="verificarClasse()">Verificar Classe</button>
+    <a href="landingPage.html" >Voltar</a>
+    <p id="resultado"></p>
+</div>
+
+<script>
+    function verificarClasse() {
+        let ip = document.getElementById("ipInput").value;
+        let resultado = document.getElementById("resultado");
+
+        // Verificando se o IP é válido
+        if (!validarIP(ip)) {
+            resultado.textContent = "IP inválido. Insira um IP válido no formato x.x.x.x.";
+            resultado.style.color = "red";
+            return;
+        }
+
+        let primeiraParte = parseInt(ip.split('.')[0]);
+
+        if (primeiraParte >= 1 && primeiraParte <= 126) {
+            resultado.textContent = "Classe A";
+            resultado.style.color = "green";
+        } else if (primeiraParte >= 128 && primeiraParte <= 191) {
+            resultado.textContent = "Classe B";
+            resultado.style.color = "blue";
+        } else if (primeiraParte >= 192 && primeiraParte <= 223) {
+            resultado.textContent = "Classe C";
+            resultado.style.color = "orange";
+        } else if (primeiraParte >= 224 && primeiraParte <= 239) {
+            resultado.textContent = "Classe D (Multicast)";
+            resultado.style.color = "purple";
+        } else if (primeiraParte >= 240 && primeiraParte <= 255) {
+            resultado.textContent = "Classe E (Reservado para uso futuro)";
+            resultado.style.color = "gray";
+        } else {
+            resultado.textContent = "Classe inválida!";
+            resultado.style.color = "red";
+        }
+    }
+
+    function validarIP(ip) {
+        const regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        return regex.test(ip);
+    }
+</script>
+
+</body>
+</html>

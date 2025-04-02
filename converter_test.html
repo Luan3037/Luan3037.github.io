@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor Binário para Decimal - IP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button,a {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button,a:hover {
+            background-color: #45a049;
+        }
+        p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Conversor Binário para Decimal (IP)</h2>
+    <p>Digite o endereço IP em binário (8 bits para cada parte)</p>
+    <input type="text" id="binarioInput" placeholder="Exemplo: 11000000.10101000.00000001.00000001">
+    <button onclick="converterBinarioParaDecimal()">Converter</button>
+    <a href="landingPage.html" >Voltar</a>
+    <p id="resultado"></p>
+</div>
+
+<script>
+    function converterBinarioParaDecimal() {
+        let binario = document.getElementById("binarioInput").value.trim();
+        let resultado = document.getElementById("resultado");
+        
+        // Verificar se o formato de IP binário está correto
+        let partes = binario.split('.');
+        
+        if (partes.length !== 4 || !partes.every(parte => validarBinario(parte))) {
+            resultado.textContent = "Por favor, insira um IP binário válido (8 bits por parte, separadas por ponto).";
+            resultado.style.color = "red";
+            return;
+        }
+        
+        // Converter cada parte binária para decimal
+        let ipDecimal = partes.map(parte => parseInt(parte, 2)).join('.');
+        
+        resultado.textContent = "Endereço IP em Decimal: " + ipDecimal;
+        resultado.style.color = "green";
+    }
+
+    function validarBinario(binario) {
+        // Verifica se a parte é uma sequência binária de 8 bits
+        return /^[01]{8}$/.test(binario);
+    }
+</script>
+
+</body>
+</html>
+_
